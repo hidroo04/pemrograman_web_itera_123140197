@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Info App - Next Gen</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- AOS Library -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header data-aos="fade-down" data-aos-duration="800">
+            <h1>🌤️ Aplikasi Informasi Cuaca</h1>
+            <p>Next Generation Weather Information System</p>
+        </header>
+
+        <div class="form-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+            <h2 id="form-title">➕ Tambah Data Cuaca Baru</h2>
+            <form id="weather-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">Nama Kota *</label>
+                        <input type="text" id="city" placeholder="Contoh: Jakarta" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="temperature">Suhu (°C) *</label>
+                        <input type="number" id="temperature" placeholder="Contoh: 28" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="condition">Kondisi Cuaca *</label>
+                        <select id="condition" required>
+                            <option value="">Pilih Kondisi</option>
+                            <option value="Cerah">☀️ Cerah</option>
+                            <option value="Berawan">⛅ Berawan</option>
+                            <option value="Hujan">🌧️ Hujan</option>
+                            <option value="Badai">⛈️ Badai</option>
+                            <option value="Mendung">☁️ Mendung</option>
+                            <option value="Kabut">🌫️ Kabut</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="humidity">Kelembaban (%) *</label>
+                        <input type="number" id="humidity" min="0" max="100" placeholder="Contoh: 75" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Deskripsi Tambahan</label>
+                    <textarea id="description" rows="3" placeholder="Contoh: Cuaca cerah sepanjang hari dengan angin sepoi-sepoi"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="submit-btn">
+                        <span class="btn-text">Tambah Data Cuaca</span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="cancel-btn" style="display: none;">
+                        <span class="btn-text">Batal</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+            <div class="search-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="search" placeholder="Cari kota...">
+                <span class="search-clear" id="search-clear" style="display: none;">✕</span>
+            </div>
+        </div>
+
+        <!-- Weather Cards Container -->
+        <div id="weather-container" class="weather-grid"></div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="empty-state" data-aos="zoom-in" data-aos-duration="800">
+            <div class="empty-icon">📭</div>
+            <h3>Belum Ada Data Cuaca</h3>
+            <p>Silakan tambahkan data cuaca pertama Anda menggunakan form di atas</p>
+        </div>
+
+        <!-- Scroll to Top Button -->
+        <button id="scroll-top" class="scroll-top-btn" title="Kembali ke atas">
+            <span>↑</span>
+        </button>
+    </div>
+
+    <!-- AOS Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
