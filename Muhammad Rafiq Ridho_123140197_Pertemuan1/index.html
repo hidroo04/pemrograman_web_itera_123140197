@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Task Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>KuliahKu</h1>
+    </header>
+
+    <main>
+        <section class="task-form-container">
+            <h2>Tambah Tugas Baru</h2>
+            <form id="task-form">
+                <div>
+                    <label for="task-name">Nama Tugas:</label>
+                    <input type="text" id="task-name" required placeholder="Contoh: Laporan Akhir Jaringan">
+                </div>
+                <div>
+                    <label for="task-course">Mata Kuliah:</label>
+                    <input type="text" id="task-course" required placeholder="Contoh: Jaringan Komputer">
+                </div>
+                <div>
+                    <label for="task-deadline">Deadline:</label>
+                    <input type="date" id="task-deadline" required>
+                </div>
+                <button type="submit">Tambah Tugas</button>
+            </form>
+            <p id="form-error" class="error-message"></p>
+        </section>
+        
+        <hr>
+
+        <section class="task-list-controls">
+            <h2>Daftar Tugas</h2>
+            <div class="controls-bar">
+                <select id="filter-status">
+                    <option value="all">Semua Status</option>
+                    <option value="pending">Belum Selesai</option>
+                    <option value="completed">Selesai</option>
+                </select>
+                <input type="text" id="search-course" placeholder="Cari Mata Kuliah...">
+            </div>
+            
+            <p class="task-stats">Tugas Belum Selesai: <span id="pending-count">0</span></p>
+
+            <ul id="task-list">
+                </ul>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
