@@ -9,3 +9,14 @@ Pada Program ini diterapkan:
 - Input dari User
 
 ## Fitur Utama
+| Fitur | Deskripsi |
+| :--- | :--- |
+| Tambah Buku | Input ID, judul, dan author |
+| Tambah Magazine | Input ID, judul, dan issue |
+| Tampilkan Semua Item |  Menampilkan seluruh koleksi |
+| Cari Item | Pencarian berdasarkan judul atau ID |
+
+## Hasil Running
+<img width="619" height="778" alt="image" src="https://github.com/user-attachments/assets/3736fd4e-d265-4f95-b73e-bb170056c17d" />
+
+
