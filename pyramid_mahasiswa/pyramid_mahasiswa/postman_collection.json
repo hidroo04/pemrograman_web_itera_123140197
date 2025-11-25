@@ -1,0 +1,124 @@
+{
+	"info": {
+		"name": "Pyramid Matakuliah API",
+		"_postman_id": "00000000-0000-0000-0000-000000000000",
+		"description": "Collection untuk mengetes API matakuliah (import ke Postman). Sesuaikan variable BASE_URL jika perlu.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Matakuliah",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/matakuliah",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"matakuliah"
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Matakuliah by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/matakuliah/1",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"matakuliah",
+						"1"
+					]
+				}
+			}
+		},
+		{
+			"name": "Create Matakuliah (POST)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"kode_mk\": \"IF103\",\n  \"nama_mk\": \"Struktur Data\",\n  \"sks\": 3,\n  \"semester\": 3\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/matakuliah",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"matakuliah"
+					]
+				}
+			}
+		},
+		{
+			"name": "Update Matakuliah (PUT)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nama_mk\": \"Pemrograman Web - Update\",\n  \"sks\": 4\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/matakuliah/1",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"matakuliah",
+						"1"
+					]
+				}
+			}
+		},
+		{
+			"name": "Delete Matakuliah (DELETE)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/matakuliah/3",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"matakuliah",
+						"3"
+					]
+				}
+			}
+		}
+	],
+	"event": [],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:6543",
+			"type": "string"
+		}
+	]
+}
