@@ -1,4 +1,4 @@
-# Pyramid Mahasiswa — Testing (PostgreSQL + Postman)
+# Pyramid Matakuliah — Testing (PostgreSQL + Postman)
 
 Panduan singkat untuk menjalankan aplikasi, menghubungkan ke PostgreSQL, menjalankan migrasi, menambahkan data awal, dan mengetes API menggunakan Postman.
 
@@ -37,37 +37,36 @@ GRANT ALL PRIVILEGES ON DATABASE pyramid_db TO pyramid_user;
 Buka file `development.ini` (di root project) dan temukan baris `sqlalchemy.url = ...` lalu ubah menjadi seperti di bawah:
 
 ```
-sqlalchemy.url = postgresql+psycopg2://pyramid_user:secret@localhost/pyramid_db
+sqlalchemy.url = postgresql+psycopg2://pyramid_user:secret@localhost:5432/pyramid_db
 ```
 
-Jika `development.ini` tidak memiliki `sqlalchemy.url`, tambahkan di bagian `[app:main]` atau gunakan variabel lingkungan dan sedot nilai dari sana. Pastikan nama host dan port sesuai instalasi PostgreSQL Anda.
+Pastikan nama host, port (default 5432), dan credentials sesuai dengan instalasi PostgreSQL Anda.
 
 5. Jalankan migrasi Alembic (apply migrations):
 
 ```
-# jika Anda sudah membuat revisi migrasi, cukup upgrade head
-alembic -c development.ini upgrade head
-
-# jika belum ada revisi (hanya jika Anda membuat perubahan model), buat revisi otomatis
-alembic -c development.ini revision --autogenerate -m "create mahasiswa table"
 alembic -c development.ini upgrade head
 ```
 
 6. Tambahkan data awal (script inisialisasi tersedia):
 
-Jika Anda sudah meng-install package dengan `pip install -e .`, ada console script bernama `initialize_pyramid_mahasiswa_db`:
-
 ```
 initialize_pyramid_mahasiswa_db development.ini
 ```
 
-Atau jalankan modul langsung (tanpa menginstall):
+Atau jalankan modul langsung:
 
 ```
 python -m pyramid_mahasiswa.scripts.initialize_db development.ini
 ```
 
-Script tersebut akan menambahkan 2 mahasiswa contoh (nim `12345` dan `54321`).
+Script tersebut akan menambahkan 2 matakuliah contoh (IF101, IF102).
+
+Untuk menambahkan data tambahan, gunakan script:
+
+```
+python add_matakuliah.py
+```
 
 7. Jalankan server:
 
@@ -81,31 +80,30 @@ Secara default Pyramid menggunakan port `6543`. Akses base URL:
 http://localhost:6543
 ```
 
-API endpoints (tersedia di project):
-- `GET /api/mahasiswa` — daftar semua mahasiswa
-- `GET /api/mahasiswa/{id}` — detail satu mahasiswa
-- `POST /api/mahasiswa` — tambah mahasiswa baru
-- `PUT /api/mahasiswa/{id}` — update mahasiswa
-- `DELETE /api/mahasiswa/{id}` — hapus mahasiswa
+**API Endpoints Matakuliah**:
+- `GET /api/matakuliah` — daftar semua matakuliah
+- `GET /api/matakuliah/{id}` — detail satu matakuliah
+- `POST /api/matakuliah` — tambah matakuliah baru
+- `PUT /api/matakuliah/{id}` — update matakuliah
+- `DELETE /api/matakuliah/{id}` — hapus matakuliah
 
-Contoh body JSON untuk `POST /api/mahasiswa`:
+**Contoh body JSON untuk `POST /api/matakuliah`:**
 
-```
+```json
 {
-  "nim": "11111",
-  "nama": "Andi",
-  "jurusan": "Teknik Informatika",
-  "tanggal_lahir": "2000-01-20",
-  "alamat": "Jl. Contoh No.1"
+  "kode_mk": "IF103",
+  "nama_mk": "Struktur Data",
+  "sks": 3,
+  "semester": 3
 }
 ```
 
-Contoh body JSON untuk `PUT /api/mahasiswa/1` (partial update diperbolehkan):
+**Contoh body JSON untuk `PUT /api/matakuliah/1` (partial update diperbolehkan):**
 
-```
+```json
 {
-  "nama": "Andi Wijaya",
-  "alamat": "Alamat baru"
+  "nama_mk": "Pemrograman Web - Advanced",
+  "sks": 4
 }
 ```
 
@@ -114,16 +112,27 @@ Contoh body JSON untuk `PUT /api/mahasiswa/1` (partial update diperbolehkan):
 - Import file `postman_collection.json` (terlampir di repo) ke Postman.
 - Atur `BASE_URL` di collection atau gunakan `http://localhost:6543`.
 - Contoh request:
-  - GET `{{BASE_URL}}/api/mahasiswa`
-  - GET `{{BASE_URL}}/api/mahasiswa/1`
-  - POST `{{BASE_URL}}/api/mahasiswa` (body -> raw -> JSON)
-  - PUT `{{BASE_URL}}/api/mahasiswa/1` (body -> JSON)
-  - DELETE `{{BASE_URL}}/api/mahasiswa/1`
+  - GET `{{BASE_URL}}/api/matakuliah`
+  - GET `{{BASE_URL}}/api/matakuliah/1`
+  - POST `{{BASE_URL}}/api/matakuliah` (body -> raw -> JSON)
+  - PUT `{{BASE_URL}}/api/matakuliah/1` (body -> JSON)
+  - DELETE `{{BASE_URL}}/api/matakuliah/1`
 
 9. Verifikasi
 
-- Pastikan response status code dan payload sesuai (JSON), mis. POST mengembalikan `{'success': True, 'mahasiswa': {...}}`.
+- Pastikan response status code dan payload sesuai (JSON).
+- Contoh response POST: `{'success': True, 'matakuliah': {...}}`
+- Contoh response GET all: `{'matakuliahs': [...]}`
 
-Jika menemukan error koneksi database, periksa `development.ini` dan jalankan `psql`/pgAdmin untuk memastikan database berjalan dan kredensial benar.
+**Troubleshooting**:
 
-Jika mau, saya juga dapat membuat contoh Postman collection lebih lengkap (environment + sample responses). Mau saya tambahkan file koleksi sekarang? 
+Jika menemukan error koneksi database:
+- Periksa `development.ini` dan pastikan `sqlalchemy.url` benar
+- Jalankan `psql` atau pgAdmin untuk memastikan database berjalan
+- Verifikasi kredensial PostgreSQL (`pyramid_user` / password)
+
+**Data Sample Matakuliah** (sudah ada di database):
+- IF101 - Pemrograman Web (3 SKS, Semester 5)
+- IF102 - Basis Data (4 SKS, Semester 5)
+- IF104 - Algoritma dan Pemrograman (4 SKS, Semester 1)
+- IF105 - Jaringan Komputer (3 SKS, Semester 5) 
